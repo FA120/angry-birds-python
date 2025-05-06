@@ -56,3 +56,13 @@ class Polygon():
             p = p - offset
             np = p
             screen.blit(rotated_logo_img, (np.x, np.y))
+
+class Stone(Polygon):
+    def __init__(self, pos, length, height, space, mass=5.0):
+        super().__init__(pos, length, height, space, mass)
+        stone = pygame.image.load("../ressources/images/stone1.png").convert_alpha()
+        stone2 = pygame.image.load("../ressources/images/stone2.ong").convert_alpha()
+        rect = pygame.Rect(251, 375, 86, 22)
+        self.beam_image = stone.subsurface(rect).copy()
+        rect = pygame.Rect(16, 252, 22, 84)
+        self.column_image = stone2.subsurface(rect).copy()
