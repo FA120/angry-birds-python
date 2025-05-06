@@ -310,6 +310,21 @@ def post_solve_pig_wood(arbiter, space, _):
         space.remove(pig.shape, pig.shape.body)
         pigs.remove(pig)
 
+def post_solve_pig_stone(arbiter, space, _):
+    "Collision between pig and stone, if for some reason a stone falls on a pig"
+    pigs_to_remove = []
+    if arbiter.total_impulse.length > 700:
+        pig_shape, stone_shape = arbiter.shapes
+        for pig in pigs:
+            if pig_shape == pig.shape:
+                pig.life -= 40
+                global score
+                score += 10000
+                if pig.life <= 0:
+                    pigs_to_remove.append(pig)
+    for pig in pigs_to_remove:
+        space.remove(pig.shape, pig.shape.body)
+        pigs.remove(pig)
 
 # bird and pigs
 space.add_collision_handler(0, 1).post_solve=post_solve_bird_pig
@@ -317,6 +332,9 @@ space.add_collision_handler(0, 1).post_solve=post_solve_bird_pig
 space.add_collision_handler(0, 2).post_solve=post_solve_bird_wood
 # pig and wood
 space.add_collision_handler(1, 2).post_solve=post_solve_pig_wood
+# pig and stone
+space.add_collision_handler(1, 4).post_solve=post_solve_pig_stone
+
 load_music()
 level = Level(pigs, columns, beams, space)
 level.number = 0
