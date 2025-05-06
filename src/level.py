@@ -1,5 +1,5 @@
 from characters import Pig
-from polygon import Polygon
+from polygon import Polygon,Stone
 
 
 class Level():
@@ -85,6 +85,8 @@ class Level():
         """level 1"""
         pig = Pig(1000, 100, self.space)
         self.pigs.append(pig)
+        p = (900, 150)
+        self.columns.append(Stone(p, 20, 85, self.space))
         p = (900, 80)
         self.columns.append(Polygon(p, 20, 85, self.space))
         p = (850, 80)
@@ -93,6 +95,8 @@ class Level():
         self.columns.append(Polygon(p, 20, 85, self.space))
         p = (1050, 150)
         self.columns.append(Polygon(p, 20, 85, self.space))
+        p = (1050, 170)
+        self.beams.append(Stone(p, 85, 20, self.space))
         p = (1105, 210)
         self.beams.append(Polygon(p, 85, 20, self.space))
         self.number_of_birds = 4
